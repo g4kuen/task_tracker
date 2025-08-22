@@ -22,11 +22,11 @@ CREATE DATABASE todo_db;
 # 5. Создайте .env файл и введите ссылку доступа к базе данных
 DATABASE_URL=postgresql://username:password@localhost:5432/todo_db
 
-# 6. Миграции в терминале cd\fastapiCRUD
-alembic upgrade head
-
-# 7. Переход в каталог проекта
+# 6. Переход в каталог проекта
 cd fastapiCRUD
+
+# 7. Миграции в терминале cd\fastapiCRUD
+alembic upgrade head
 
 # 8. Запуск проекта в терминале
 uvicorn main:app --reload --port 8080
