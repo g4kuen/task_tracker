@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}Все задачи - Todo App{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>
+                <i class="fas fa-list-check me-2"></i>Мои задачи
+            </h1>
+            <a href="/tasks/create" class="btn btn-primary">
+                <i class="fas fa-plus me-1"></i>Новая задача
+            </a>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ tasks|length }}</h5>
+                        <p class="card-text">Всего задач</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center bg-success text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ tasks|selectattr('completed')|list|length }}</h5>
+                        <p class="card-text">Выполнено</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center bg-warning">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ tasks|rejectattr('completed')|list|length }}</h5>
+                        <p class="card-text">В процессе</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-tasks me-2"></i>Список задач
+                </h5>
+            </div>
+            <div class="card-body p-0">
+                {% if tasks %}
+                    <div class="list-group list-group-flush">
+                        {% for task in tasks %}
+                        <div class="list-group-item task-card {% if task.completed %}completed-task{% endif %}">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div class="flex-grow-1">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <h6 class="mb-0 me-2 {% if task.completed %}text-muted{% endif %}">
+                                            {{ task.title }}
+                                        </h6>
+                                        {% if task.completed %}
+                                        <span class="badge bg-success">
+                                            <i class="fas fa-check me-1"></i>Выполнено
+                                        </span>
+                                        {% else %}
+                                        <span class="badge bg-warning text-dark">
+                                            <i class="fas fa-clock me-1"></i>В процессе
+                                        </span>
+                                        {% endif %}
+                                    </div>
+
+                                    {% if task.description %}
+                                    <p class="text-muted mb-2 small">{{ task.description }}</p>
+                                    {% endif %}
+
+                                    <div class="text-muted small">
+                                        <i class="fas fa-calendar me-1"></i>
+                                        Создано: {{ task.created_at.strftime('%d.%m.%Y %H:%M') }}
+                                        {% if task.updated_at %}
+                                        | Обновлено: {{ task.updated_at.strftime('%d.%m.%Y %H:%M') }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="btn-group ms-3" role="group">
+                                    <a href="/tasks/{{ task.id }}" class="btn btn-sm btn-info">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="/tasks/{{ task.id }}/edit" class="btn btn-sm btn-warning">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form action="/tasks/{{ task.id }}/delete" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirmDelete()">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">Задач пока нет</h5>
+                        <p class="text-muted">Создайте свою первую задачу!</p>
+                        <a href="/tasks/create" class="btn btn-primary">
+                            <i class="fas fa-plus me-1"></i>Создать задачу
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
