@@ -16,7 +16,7 @@ git clone -b master https://github.com/g4kuen/task_tracker.git
 # 3. Создайте виртуальное окружение
 
 # 4. Переход в каталог проекта
-cd fastapiCRUD
+cd task_tracker
 
 # 5. Установка зависимостей
 pip install -r requirements.txt
