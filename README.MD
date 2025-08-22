@@ -13,25 +13,27 @@ git init
 # 2. Клонирование ветки master из репозитория
 git clone -b master https://github.com/g4kuen/task_tracker.git
 
-# 3. Установка зависимостей
-pip install -r requirements.txt
+# 3. Создайте виртуальное окружение
 
-# 3. Создание базы данных в PostgreSQL
-CREATE DATABASE todo_db;
-
-# 5. Создайте .env файл и введите ссылку доступа к базе данных
-DATABASE_URL=postgresql://username:password@localhost:5432/todo_db
-
-# 6. Переход в каталог проекта
+# 4. Переход в каталог проекта
 cd fastapiCRUD
 
-# 7. Миграции в терминале cd\fastapiCRUD
+# 5. Установка зависимостей
+pip install -r requirements.txt
+
+# 6. Создание базы данных в PostgreSQL
+CREATE DATABASE todo_db;
+
+# 7. Создайте .env файл и введите ссылку доступа к базе данных
+DATABASE_URL=postgresql://username:password@localhost:5432/todo_db
+
+# 8. Миграции в терминале cd\fastapiCRUD
 alembic upgrade head
 
-# 8. Запуск проекта в терминале
+# 9. Запуск проекта в терминале
 uvicorn main:app --reload --port 8080
 
-# 9. Запуск тестов pytest в терминале cd\fastapiCRUD
+# 10. Запуск тестов pytest в терминале cd\fastapiCRUD
 pytest test_main.py
 
 ```
