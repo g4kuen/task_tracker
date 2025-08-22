@@ -24,16 +24,19 @@ pip install -r requirements.txt
 # 6. Создание базы данных в PostgreSQL
 CREATE DATABASE todo_db;
 
-# 7. Создайте .env файл и введите ссылку доступа к базе данных
+# 7. проверьте что ссылка доступа к базе данных в alembic.ini совпадает с .env 
+sqlalchemy.url = postgresql://username:password@localhost:5432/todo_db
+
+# 8. Создайте .env файл и введите ссылку доступа к базе данных
 DATABASE_URL=postgresql://username:password@localhost:5432/todo_db
 
-# 8. Миграции в терминале cd\fastapiCRUD
+# 9. Миграции в терминале cd\fastapiCRUD
 alembic upgrade head
 
-# 9. Запуск проекта в терминале
+# 10. Запуск проекта в терминале
 uvicorn main:app --reload --port 8080
 
-# 10. Запуск тестов pytest в терминале cd\fastapiCRUD
+# 11. Запуск тестов pytest в терминале cd\fastapiCRUD
 pytest test_main.py
 
 ```
